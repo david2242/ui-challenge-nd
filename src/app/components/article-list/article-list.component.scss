@@ -1,0 +1,19 @@
+
+.card {
+    cursor: pointer;
+}
+
+.card-text, .card-title, .card-subtitle, .card-body {
+    overflow: hidden;
+}
+
+
+.card-title {
+    max-height: 4.8em;
+}
+.card-subtitle {
+    max-height: 3.6em;
+}
+.card-text {
+    max-height: 18em;
+}

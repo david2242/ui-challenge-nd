@@ -1,0 +1,38 @@
+<div class="container-md">
+    <div class="row">
+        <div class="col-s-0 col-md-3"></div>
+        <div class="col-s-1 col-md-6">
+            <div class="row">
+                <div class="col">
+                    <h5 class="my-3">New User</h5>
+                    <form action="" [formGroup]="userForm" (ngSubmit)="updateUser()">
+                        <div class="form-floating mb-3">
+                            <input formControlName="userEmail" type="email" class="form-control" id="userEmail"
+                                placeholder="name@example.com">
+                            <label for="userEmail">Email address</label>
+                            <small *ngIf="userForm.get('userEmail')?.invalid && userForm.get('userEmail')?.dirty" class="text-danger">Please enter a valid e-mail!</small>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input formControlName="userName" type="text" class="form-control" id="userName"
+                                placeholder="Username">
+                            <label for="userName">Username</label>
+                            <small *ngIf="userForm.get('userName')?.invalid && userForm.get('userName')?.dirty" class="text-danger">Username must be at least 5 characters!</small>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea formControlName="userBio" class="form-control" id="userBio" placeholder="Bio"
+                                rows="6" style="height:100%;"></textarea>
+                            <label for="userBio">Bio</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input formControlName="userImage" type="text" class="form-control" id="userImage"
+                                placeholder="image">
+                            <label for="userImage">Image</label>
+                        </div>
+                        <button [disabled]="userForm.invalid" class="btn btn-secondary">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-s-0 col-md-3"></div>
+    </div>
+</div>

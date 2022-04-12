@@ -1,0 +1,25 @@
+<div class="container-md">
+    <form [formGroup]="articleForm" (ngSubmit)="submitArticle()">
+        <h5 class="my-3">New Article</h5>
+        <div class="mb-3">
+            <label for="articleTitle" class="form-label">Title</label>
+            <input formControlName="articleTitle" type="text" class="form-control" id="articleTitle">
+        </div>
+        <div class="mb-3">
+            <label for="articleDescription" class="form-label">Description</label>
+            <input formControlName="articleDescription" type="text" class="form-control" id="articleDescription">
+        </div>
+        <div class="mb-3">
+            <label for="articleBody" class="form-label">Body</label>
+            <textarea formControlName="articleBody" class="form-control" aria-label="With textarea"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="articleTags" class="form-label">Tags</label>
+            <tag-input formControlName="articleTags"></tag-input>
+        </div>
+        <div>
+            <button type="submit" [disabled]="articleForm.invalid" class="btn btn-success">Update</button>
+            <button type="submit" [disabled]="articleForm.invalid" class="btn btn-danger">Delete</button>
+        </div>
+    </form>
+</div>

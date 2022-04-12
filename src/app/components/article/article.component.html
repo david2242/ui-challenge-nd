@@ -1,0 +1,19 @@
+<div style="height: 50px;"></div>
+<div class="container-md">
+    <div class="row">
+        <div class="col">
+            <div class="d-flex justify-content-between">
+                <h3>{{ showArticle.title }}</h3>
+                <button (click)="editArticle(showArticle.slug!)" class="btn btn-outline-warning btn ms-3">Edit</button>
+            </div>
+            <p class="text-muted">
+                {{ showArticle.description }}
+            </p>
+            <div >
+                <span *ngFor="let tag of showArticle.tagList" class="badge rounded-pill bg-secondary me-2">{{ tag }}</span>
+            </div>
+            <hr>
+            <p>{{ showArticle.body }}</p>
+        </div>
+    </div>
+</div>
