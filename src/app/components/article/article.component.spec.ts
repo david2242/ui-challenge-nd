@@ -1,4 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { of } from 'rxjs';
+import { ArticleService } from 'src/app/service/article.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 import { ArticleComponent } from './article.component';
 
@@ -8,7 +13,13 @@ describe('ArticleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ArticleComponent ]
+      declarations: [ ArticleComponent ],
+      providers: [
+        {provide: ArticleService, useClass: ArticleServiceStub},
+        {provide: Router, useClass: RouterStub},
+        {provide: AuthService, useClass: AuthServiceStub},
+        {provide: ToastrService, useClass: ToastrServiceStub}
+      ]
     })
     .compileComponents();
   });
@@ -23,3 +34,13 @@ describe('ArticleComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+class ArticleServiceStub {
+  get() {
+    return of();
+  }
+}
+
+class RouterStub {}
+class ToastrServiceStub {}
+class AuthServiceStub {}

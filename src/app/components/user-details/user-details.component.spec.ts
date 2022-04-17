@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AuthService } from 'src/app/service/auth.service';
+import { UserService } from 'src/app/service/user.service';
 
 import { UserDetailsComponent } from './user-details.component';
 
@@ -8,7 +10,11 @@ describe('UserDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserDetailsComponent ]
+      declarations: [ UserDetailsComponent ],
+      providers: [
+        {provide: UserService, useClass: UserServiceStub},
+        {provide: AuthService, useClass: AuthServiceStub}
+      ]
     })
     .compileComponents();
   });
@@ -23,3 +29,6 @@ describe('UserDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+class UserServiceStub {}
+class AuthServiceStub {}

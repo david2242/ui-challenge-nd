@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Article } from 'src/app/model/article';
 import { ArticleService } from 'src/app/service/article.service';
 
+
 @Component({
   selector: 'app-article-list',
   templateUrl: './article-list.component.html',
@@ -15,6 +16,7 @@ export class ArticleListComponent implements OnInit {
   codec = new HttpUrlEncodingCodec;
 
 
+
   constructor(
     private articleService: ArticleService,
     private router: Router
@@ -23,7 +25,7 @@ export class ArticleListComponent implements OnInit {
   ngOnInit(): void {
     this.articleService.getAll().subscribe(
       (res: any) => {
-        console.log(res);
+        // console.log(res);
         this.articleList = res.articles;
       }
     )
@@ -34,7 +36,5 @@ export class ArticleListComponent implements OnInit {
     this.articleService.chosenSlug = slug;
     this.router.navigate(['article-show']);
   }
-
-
 
 }

@@ -18,7 +18,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private userService: UserService
+    // private userService: UserService
   ) { }
 
   get currentUserValue(): UserInterface {
@@ -42,6 +42,7 @@ export class AuthService {
           this.lastToken = user.token;
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(user);
+          console.log(user);
         }
       })
     )

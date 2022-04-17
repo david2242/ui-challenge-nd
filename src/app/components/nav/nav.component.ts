@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { UserInterface } from 'src/app/model/user';
 import { AuthService } from 'src/app/service/auth.service';
@@ -14,10 +15,12 @@ export class NavComponent implements OnInit, OnDestroy {
   private userSub?: Subscription;
 
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    private toastr: ToastrService
   ) { }
 
   logout(): void {
+    this.toastr.info('You logged out!', 'Goodbye!')
     this.auth.logout();
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { UserInfo, UserInterface } from 'src/app/model/user';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
@@ -27,7 +28,8 @@ export class UserDetailsComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private auth: AuthService
+    private auth: AuthService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -58,8 +60,23 @@ export class UserDetailsComponent implements OnInit {
         localStorage.clear();
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.auth.currentUserSubject.next(user);
+        this.toastr.success('User details updated!', 'Success!');
+      },
+      err => {
+        this.showError(this.createErrorMessage(err.error.errors));
       }
     )
+  }
+
+  showError(message: string) {
+    this.toastr.error(message, "Error!", {
+      enableHtml: true,
+      progressBar: true
+    })
+  }
+
+  createErrorMessage(errors: any): string {
+    return Object.values(errors).join('</br>');
   }
 
 }

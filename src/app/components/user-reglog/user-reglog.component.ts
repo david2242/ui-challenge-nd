@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { CreateUser, UserEmailPasswordInterface, UserInterface } from 'src/app/model/user';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-reglog',
@@ -17,8 +17,6 @@ export class UserReglogComponent implements OnInit {
     userEmail: new FormControl('', [Validators.required, Validators.email]),
     userPassword: new FormControl('', [Validators.required, Validators.minLength(5)]),
     userName: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    // userBio: new FormControl(''),
-    // userImage: new FormControl('')
   });
 
   public loginForm: FormGroup = new FormGroup({
@@ -32,12 +30,13 @@ export class UserReglogComponent implements OnInit {
     password: ""
   };
 
-  errorMessages: string[] = [];
-  displayStyle: string = "none";
+
 
   constructor(
     private auth: AuthService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private toastr: ToastrService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -56,14 +55,11 @@ export class UserReglogComponent implements OnInit {
     };
     this.auth.login(loginData).toPromise().then(
       userResponse => {
-        console.log("You are logged in as " + this.auth.currentUserValue.username);
-        console.log(userResponse);
-        this.loginForm.reset();
+        this.showSuccessLogin(this.auth.currentUserValue.username),
+        this.router.navigate(['']);
       },
       err => {
-        this.errorMessages = [];
-        this.displayStyle = "block";
-        Object.values(err.error.errors).forEach(val => this.errorMessages.push(String(val)));
+        this.showError(this.createErrorMessage(err.error.errors));
       }
     );
   }
@@ -73,15 +69,24 @@ export class UserReglogComponent implements OnInit {
     this.userService.create(this.newUser).subscribe(
       res => this.userForm.reset(),
       err => {
-        this.errorMessages = [];
-        this.displayStyle = "block";
-        Object.values(err.error.errors).forEach(val => this.errorMessages.push(String(val)));
+        this.showError(this.createErrorMessage(err.error.errors));
       }
     );
   }
 
-  closePopup(): void {
-    this.displayStyle = "none";
+  showSuccessLogin(username: string) {
+    this.toastr.success(`Welcome ${username}!`, 'Login success!');
+  }
+
+  showError(message: string) {
+    this.toastr.error(message, "Error!", {
+      enableHtml: true,
+      progressBar: true
+    })
+  }
+
+  createErrorMessage(errors: any): string {
+    return Object.values(errors).join('</br>');
   }
 
 }

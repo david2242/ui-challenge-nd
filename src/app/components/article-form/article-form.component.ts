@@ -2,10 +2,11 @@ import { HttpUrlEncodingCodec } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 import { Article } from 'src/app/model/article';
+import { UserInterface } from 'src/app/model/user';
 import { ArticleService } from 'src/app/service/article.service';
-import { CommServiceService } from 'src/app/service/comm-service.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 
 
@@ -17,15 +18,16 @@ import { CommServiceService } from 'src/app/service/comm-service.service';
 export class ArticleFormComponent implements OnInit {
 
   codec = new HttpUrlEncodingCodec;
-  private paramObs?: Subscription;
   articleEncodedSlug: string | null = "";
   public updating: boolean = false;
+  public loggedIn: UserInterface = this.auth.currentUserValue;
 
   constructor(
-    private http: CommServiceService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private articleService: ArticleService) { }
+    private articleService: ArticleService,
+    private toastr: ToastrService,
+    private auth: AuthService) { }
 
   public articleForm: FormGroup = new FormGroup({
     articleTitle: new FormControl('', Validators.required),
@@ -48,18 +50,15 @@ export class ArticleFormComponent implements OnInit {
       this.articleService.get(this.codec.decodeValue(this.articleEncodedSlug)).subscribe(
         (res: any) => {
           this.newArticle = res.article;
-          // console.log(this.newArticle);
           this.articleForm.setValue({
             articleTitle: this.newArticle.title,
             articleDescription: this.newArticle.description,
             articleBody: this.newArticle.body,
             articleTags: this.tagFiller(this.newArticle.tagList)
           });
-
         }
       )
     }
-    // console.log(this.updating);
   }
 
   
@@ -88,10 +87,12 @@ export class ArticleFormComponent implements OnInit {
   
   public submitArticle(): void {
     this.saveArticleValuesFromInput();
-    this.http.saveArticle(this.newArticle).subscribe(
+    this.articleService.createArticle(this.newArticle).subscribe(
       (res) => {
-        console.log(res);
         this.router.navigate(['article-list']);
+      },
+      err => {
+        this.showError(err.error.message);
       }
     );
   }
@@ -101,7 +102,7 @@ export class ArticleFormComponent implements OnInit {
     if (this.newArticle.slug) {
       this.articleService.update(this.newArticle.slug, this.newArticle).subscribe(
         res => {
-          console.log(res);
+          this.toastr.success('Article updated!', 'OK!')
           this.router.navigate(['article-list']);
         }
       );
@@ -112,11 +113,18 @@ export class ArticleFormComponent implements OnInit {
     if (this.newArticle.slug) {
       this.articleService.delete(this.newArticle.slug).subscribe(
         res => {
-          console.log(res);
+          this.toastr.success('Article deleted!', 'Deleted!')
           this.router.navigate(['article-list']);
         }
       );
     }
+  }
+
+  showError(message: string) {
+    this.toastr.error(message, "Error!", {
+      enableHtml: true,
+      progressBar: true
+    })
   }
 
 }

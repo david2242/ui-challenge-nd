@@ -17,7 +17,6 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private router: Router,
     private auth: AuthService
     ) { }
 

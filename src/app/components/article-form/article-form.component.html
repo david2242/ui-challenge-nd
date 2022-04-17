@@ -1,4 +1,6 @@
-<div class="container-md">
+<div *ngIf="!loggedIn" style="height: 150px"></div>
+<div *ngIf="!loggedIn" class="text-center"><button class="n btn-secondary btn-lg" href="#" routerLink="../user-reglog">Log in first!</button></div>
+<div *ngIf="loggedIn" class="container-md">
     <form [formGroup]="articleForm">
         <h5 class="my-3">New Article</h5>
         <div class="mb-3">
@@ -21,7 +23,7 @@
         </div>
         <div class="d-flex justify-content-end">
             <button *ngIf="!updating" (click)="submitArticle()" [disabled]="articleForm.invalid" class="btn btn-primary ms-3">Submit</button>
-            <button *ngIf="updating" (click)="updateArticle()" class="btn btn-success ms-3">Update</button>
+            <button *ngIf="updating" (click)="updateArticle()" [disabled]="articleForm.invalid" class="btn btn-success ms-3">Update</button>
             <button *ngIf="updating" (click)="deleteArticle()" class="btn btn-danger ms-3">Delete</button>
             
         </div>

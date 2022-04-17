@@ -3,5 +3,8 @@ export interface Article {
     "description": string,
     "body": string,
     "tagList": Array<string>,
-    "slug"?: string
+    "slug"?: string,
+    "comments"?: Array<any>,
+    "created"?: number,
+    "isFavourite"?: boolean
 }
