@@ -16,7 +16,7 @@ import { faStar } from '@fortawesome/free-regular-svg-icons';
 })
 export class ArticleComponent implements OnInit {
 
-
+  // ARTICLE TO SHOW
   public showArticle: Article = {
     title: "",
     description: "",
@@ -24,9 +24,11 @@ export class ArticleComponent implements OnInit {
     tagList: []
   }
   
+
   public loggedIn: boolean = false;
   faPenSquare = faPenSquare; faTrash = faTrash;
   solidFaStar = solidFaStar; faStar = faStar;
+  // ARTICLE EDIT MODE: ON/OFF
   public editOn: boolean = false;
 
   constructor(
@@ -40,24 +42,23 @@ export class ArticleComponent implements OnInit {
     this.articleService.get(this.articleService.chosenSlug).subscribe(
       (res: any) => {
         this.showArticle = res.article;
-        console.log(this.showArticle);
-        this.loggedIn = Boolean(this.auth.currentUserValue.username);
+        if (this.auth.currentUserValue) {
+          this.loggedIn = Boolean(this.auth.currentUserValue.username);
+        } else this.loggedIn = false;
       }
       );
   }
 
+  // NAVIGATION TO THE ARTICLE FORM COMPONENT WITH THE CHOSEN ARTICLE IN PARAMETER
   editArticle(slug: string) {
     if (this.auth.currentUserValue) {
       this.router.navigate(['article', slug])
-    } else this.showWarning('Please log in to edit the article!');
+    } else this.toastr.warning('Please log in to edit the article!', 'Warning!');
   }
 
-  showWarning(message: string) {
-    this.toastr.warning(message, 'Warning!');
-  }
 
+  // COMMENTING SECTION
   submitComment(comment: NgForm) {
-    console.log(comment.form.value);
     this.articleService.createComment(comment.form.value, this.articleService.chosenSlug).subscribe(
       res => {
         console.log(res);
@@ -66,11 +67,9 @@ export class ArticleComponent implements OnInit {
       }
     )
   }
-
   showEditComment() {
     this.editOn = !this.editOn;
   }
-
   deleteComment(id: number) {
     this.articleService.deleteComment(id, this.articleService.chosenSlug).subscribe(
       res => {
@@ -80,9 +79,8 @@ export class ArticleComponent implements OnInit {
     )
   }
 
+  // TOGGLE FAVORITE SECTION
   toggleFavorite(slug: string | undefined, isFavorite?: boolean) {
-    console.log(slug);
-    console.log(isFavorite);
     if (!isFavorite) {
       this.articleService.favorite(slug).subscribe(
         res => {
@@ -96,7 +94,7 @@ export class ArticleComponent implements OnInit {
             );
         },
         err => {
-          this.toastr.error("Please sign in!", "Error")
+          this.toastr.warning("Please sign in to favourite!", "Warning!")
         }
       )
     } else {

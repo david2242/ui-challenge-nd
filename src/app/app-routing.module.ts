@@ -11,9 +11,9 @@ import { UserReglogComponent } from './components/user-reglog/user-reglog.compon
 const routes: Routes = [
   {path: "", component: ArticleListComponent},
   {path: "article-form", component: ArticleFormComponent},
+  {path: "article/:index", component: ArticleFormComponent},
   {path: "article-list", component: ArticleListComponent},
   {path: "article-show", component: ArticleComponent},
-  {path: "article/:index", component: ArticleFormComponent},
   {path: "user-reglog", component: UserReglogComponent},
   {path: "user-list", component: UserListComponent},
   {path: "user-details", component: UserDetailsComponent},
