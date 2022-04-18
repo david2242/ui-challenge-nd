@@ -6,5 +6,6 @@ export interface Article {
     "slug"?: string,
     "comments"?: Array<any>,
     "created"?: number,
-    "isFavourite"?: boolean
+    "isFavourite"?: boolean,
+    "favoriteCount"?: number
 }

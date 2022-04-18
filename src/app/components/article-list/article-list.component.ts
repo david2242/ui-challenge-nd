@@ -15,7 +15,20 @@ export class ArticleListComponent implements OnInit {
   public articleList: Article[] = [];
   codec = new HttpUrlEncodingCodec;
 
+  //SORTING STATES
+  sortingCreated = [
+    {sort: 'none', buttonColor: 'btn btn-light btn-sm m-auto', buttonText: 'Created'},
+    {sort: 'increase', buttonColor: 'btn btn-info btn-sm m-auto', buttonText: 'Created &#8595;'},
+    {sort: 'decrease', buttonColor: 'btn btn-info btn-sm m-auto', buttonText: 'Created &#8593;'},
+  ];
+  sortingCreatedState: number = 0;
 
+  sortingFavourite = [
+    {sort: 'none', buttonColor: 'btn btn-light btn-sm m-auto', buttonText: 'Favourite'},
+    {sort: 'increase', buttonColor: 'btn btn-info btn-sm m-auto', buttonText: 'Favourite &#8595;'},
+    {sort: 'decrease', buttonColor: 'btn btn-info btn-sm m-auto', buttonText: 'Favourite &#8593;'},
+  ];
+  sortingFavouriteState: number = 0;
 
   constructor(
     private articleService: ArticleService,
@@ -35,6 +48,49 @@ export class ArticleListComponent implements OnInit {
     const encodedSlug = this.codec.encodeValue(slug);
     this.articleService.chosenSlug = slug;
     this.router.navigate(['article-show']);
+  }
+
+  public sortCreatedIncrease(): void {
+    if (this.articleList.length >= 2) {
+      this.sortingFavouriteState = 0;
+      this.sortingCreatedState = this.sortingStateChange(this.sortingCreatedState);
+      switch (this.sortingCreatedState) {
+        case 0:         
+          break;
+        case 1:
+          this.articleList =  this.articleList.sort((firstItem, secondItem) => firstItem.created! - secondItem.created!);
+          break;
+        case 2:
+          this.articleList =  this.articleList.sort((firstItem, secondItem) =>  secondItem.created! - firstItem.created!);
+          break;
+        default:
+          break;
+      }
+    }
+  }
+  public sortFavourite(): void {
+    if (this.articleList.length >= 2) {
+      this.sortingCreatedState = 0;
+      this.sortingFavouriteState = this.sortingStateChange(this.sortingFavouriteState);
+      switch (this.sortingFavouriteState) {
+        case 0:         
+          break;
+        case 1:
+          this.articleList =  this.articleList.sort((firstItem, secondItem) => firstItem.favoriteCount! - secondItem.favoriteCount!);
+          break;
+        case 2:
+          this.articleList =  this.articleList.sort((firstItem, secondItem) =>  secondItem.favoriteCount! - firstItem.favoriteCount!);
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  private sortingStateChange(state: number) {
+    state++;
+    if (state == 3) {state = 0};
+    return state;
   }
 
 }
