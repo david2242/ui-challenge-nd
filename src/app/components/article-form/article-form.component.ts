@@ -27,8 +27,10 @@ export class ArticleFormComponent implements OnInit {
     private router: Router,
     private articleService: ArticleService,
     private toastr: ToastrService,
-    private auth: AuthService) { }
+    private auth: AuthService
+    ) { }
 
+  // TEMPLATE-DRIVEN FORM
   public articleForm: FormGroup = new FormGroup({
     articleTitle: new FormControl('', Validators.required),
     articleDescription: new FormControl(''),
@@ -44,9 +46,10 @@ export class ArticleFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //FILLING THE INPUTS WITH THE SPECIFIC ARTICLE VALUES
     this.articleEncodedSlug = this.activatedRoute.snapshot.paramMap.get('index');
     if (this.articleEncodedSlug) {
-      this.updating = true;
+      this.updating = true; //THERE ARE VALUES, -> ARTICLE UPDATE
       this.articleService.get(this.codec.decodeValue(this.articleEncodedSlug)).subscribe(
         (res: any) => {
           this.newArticle = res.article;
@@ -61,7 +64,7 @@ export class ArticleFormComponent implements OnInit {
     }
   }
 
-  
+  // SAVING INPUT-VALUES TO OBJECT
   private saveArticleValuesFromInput(): void {
     this.newArticle.title = this.articleForm.value.articleTitle;
     this.newArticle.description = this.articleForm.value.articleDescription;
@@ -69,6 +72,7 @@ export class ArticleFormComponent implements OnInit {
     this.newArticle.tagList = this.tagReader(this.articleForm.value.articleTags);
   }
   
+  //FORMATTING TAGS TO NG-CHIPS FORMAT AND BACK
   private tagReader(arrayOfChips: Array<{ 'display': string, 'value': string }>): Array<string> {
     let arrayOfTags: Array<string> = [];
     for (let i = 0; i < arrayOfChips.length; i++) {
@@ -85,6 +89,8 @@ export class ArticleFormComponent implements OnInit {
     return ngChipsFormat;
   }
   
+
+  // ARTICLE ACTIONS
   public submitArticle(): void {
     this.saveArticleValuesFromInput();
     this.articleService.createArticle(this.newArticle).subscribe(
@@ -97,7 +103,7 @@ export class ArticleFormComponent implements OnInit {
     );
   }
 
-  updateArticle() {
+  public updateArticle(): void {
     this.saveArticleValuesFromInput();
     if (this.newArticle.slug) {
       this.articleService.update(this.newArticle.slug, this.newArticle).subscribe(
@@ -109,7 +115,7 @@ export class ArticleFormComponent implements OnInit {
     }
   }
 
-  deleteArticle() {
+  public deleteArticle(): void {
     if (this.newArticle.slug) {
       this.articleService.delete(this.newArticle.slug).subscribe(
         res => {
@@ -120,6 +126,8 @@ export class ArticleFormComponent implements OnInit {
     }
   }
 
+
+  // TOASTR ERROR MESSAGE
   showError(message: string) {
     this.toastr.error(message, "Error!", {
       enableHtml: true,

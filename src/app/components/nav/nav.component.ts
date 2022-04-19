@@ -25,6 +25,7 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // DECIDING WHETER IS AUTHENTICATED OR NOT
     this.userSub = this.auth.currentUserSubject.subscribe(
       (res) => {
         if (res) {
@@ -34,7 +35,6 @@ export class NavComponent implements OnInit, OnDestroy {
     )
 
     // EZZEL A VERZIÓVAL A LOCALSTORAGE ÉRTÉKE ALAPJÁN TÖRTÉNNE A DÖNTÉS, HOGY BE VAGYUNK E JELENTKEZVE VAGY NEM
-
     // if (localStorage['currentUser']) {
     //   this.currentUser = JSON.parse(localStorage['currentUser']);
     // } else this.currentUser = undefined;

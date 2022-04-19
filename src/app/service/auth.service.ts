@@ -18,9 +18,9 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    // private userService: UserService
   ) { }
 
+  // STORING, GETTING CURRENT LOGGED-IN USER (NAV, USER-DETAILS)
   get currentUserValue(): UserInterface {
     return this.currentUserSubject.value;
   }
@@ -35,14 +35,14 @@ export class AuthService {
     )
     .pipe(
       tap(user => {
-        if (!user) {
-          localStorage.removeItem('currentUser');
-          this.currentUserSubject.next(null);
-        } else {
-          this.lastToken = user.token;
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject.next(user);
-          console.log(user);
+        if (!user) {  // HA NEM SIKERÜL A BEJELENKEZÉS
+          localStorage.removeItem('currentUser'); //TÖRÖLJÜK A LOCAL STORAGE-BŐL A CURRENT USER-T
+          this.currentUserSubject.next(null);     // KISUGÁROZZUK, HOGY NINCS USER
+        } else {  //HA SIKERÜLT
+          this.lastToken = user.token;  //ELMENTJÜK A TOKENT (A JWT-NEK)
+          localStorage.setItem('currentUser', JSON.stringify(user)); //BEÁLLÍTJUK A LOCAL STORAGE-BE A USERT
+          this.currentUserSubject.next(user); //KISUGÁROZZUK AZ ÚJ USERT
+          // console.log(user);
         }
       })
     )
@@ -56,8 +56,5 @@ export class AuthService {
     this.router.navigate(['user-reglog']);
   }
 
-  getUser() {
-    
-  }
 
 }

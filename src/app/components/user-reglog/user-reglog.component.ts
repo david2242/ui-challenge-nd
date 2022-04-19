@@ -13,17 +13,21 @@ import { Router } from '@angular/router';
 })
 export class UserReglogComponent implements OnInit {
 
+  // TEMPLATE-DRIVEN FORMS
+  // REGISTRATION
   public userForm: FormGroup = new FormGroup({
     userEmail: new FormControl('', [Validators.required, Validators.email]),
     userPassword: new FormControl('', [Validators.required, Validators.minLength(5)]),
     userName: new FormControl('', [Validators.required, Validators.minLength(5)]),
   });
 
+  // LOGIN
   public loginForm: FormGroup = new FormGroup({
     loginEmail: new FormControl('', [Validators.required, Validators.email]),
     loginPassword: new FormControl('', [Validators.required, Validators.minLength(5)]),
   });
 
+  // LOCAL NEW-USER OBJECT
   private newUser: CreateUser = {
     username: "",
     email: "",
@@ -41,6 +45,7 @@ export class UserReglogComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // SAVING VALUES FROM INPUTS
   private saveUserDataFromInput(): void {
     this.newUser.username = this.userForm.value.userName;
     this.newUser.email = this.userForm.value.userEmail;
@@ -48,6 +53,7 @@ export class UserReglogComponent implements OnInit {
     console.log(this.newUser);
   }
 
+  // LOGIN USER ACTION
   public loginUser(): void {
     const loginData: UserEmailPasswordInterface = {
       email: this.loginForm.value.loginEmail,
@@ -64,6 +70,7 @@ export class UserReglogComponent implements OnInit {
     );
   }
 
+  // REGISTRATE USER ACTION
   public regNewUser(): void {
     this.saveUserDataFromInput();
     this.userService.create(this.newUser).subscribe(
@@ -74,17 +81,16 @@ export class UserReglogComponent implements OnInit {
     );
   }
 
+  //TOASTER MESSAGES
   showSuccessLogin(username: string) {
     this.toastr.success(`Welcome ${username}!`, 'Login success!');
   }
-
   showError(message: string) {
     this.toastr.error(message, "Error!", {
       enableHtml: true,
       progressBar: true
     })
   }
-
   createErrorMessage(errors: any): string {
     return Object.values(errors).join('</br>');
   }

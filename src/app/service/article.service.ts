@@ -11,7 +11,6 @@ import { Article } from '../model/article';
 export class ArticleService {
 
   private readonly ARTICLE_URL: string = 'http://localhost:3000/api/articles';
-
   public chosenSlug: string = "";
 
   constructor(
@@ -51,7 +50,7 @@ export class ArticleService {
   // COMMENTS SECTION
   
   public createComment(commentBody: string, slug: string): Observable<any> {
-    return this.http.post<string>(`${this.ARTICLE_URL}/${slug}/comments`, commentBody);
+    return this.http.post(`${this.ARTICLE_URL}/${slug}/comments`, commentBody);
   }
 
   public deleteComment(commentId: number, slug: string): Observable<any> {

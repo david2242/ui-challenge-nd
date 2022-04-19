@@ -36,6 +36,7 @@ export class ArticleListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // GETTING ALL THE ARTICLES
     this.articleService.getAll().subscribe(
       (res: any) => {
         console.log(res);
@@ -44,13 +45,15 @@ export class ArticleListComponent implements OnInit {
     )
   }
 
+  // SHOW SPECIFIED ARTICLE ON CLICK EVENT
   public showChosenArticle(slug: string) {
     const encodedSlug = this.codec.encodeValue(slug);
     this.articleService.chosenSlug = slug;
     this.router.navigate(['article-show']);
   }
 
-  public sortCreatedIncrease(): void {
+  // SORTING METHODS
+  public sortCreated(): void {
     if (this.articleList.length >= 2) {
       this.sortingFavouriteState = 0;
       this.sortingCreatedState = this.sortingStateChange(this.sortingCreatedState);
@@ -87,6 +90,7 @@ export class ArticleListComponent implements OnInit {
     }
   }
 
+  // MAKE BUTTONS CYCLE THROUGH 3 STATE
   private sortingStateChange(state: number) {
     state++;
     if (state == 3) {state = 0};

@@ -12,7 +12,6 @@ import { UserService } from 'src/app/service/user.service';
 export class UserListComponent implements OnInit {
 
   public loggedIn: UserInterface = this.auth.currentUserValue;
-
   public userList: UserInterface[] = [];
 
   constructor(
@@ -21,6 +20,7 @@ export class UserListComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    // GETTING ALL THE USERS
     this.userService.getAll().subscribe(
       (res) => {
         console.log(res);
@@ -29,6 +29,7 @@ export class UserListComponent implements OnInit {
     );
   }
 
+  // USER DELETE ACTION
   public onDelete(email: string) {
     console.log(email);
     if (this.auth.currentUserValue.email == email) {

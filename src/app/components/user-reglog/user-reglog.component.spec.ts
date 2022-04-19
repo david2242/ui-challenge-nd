@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
@@ -16,7 +17,8 @@ describe('UserReglogComponent', () => {
       providers: [
         {provide: AuthService, useClass: AuthServiceStub},
         {provide: UserService, useClass: UserServiceStub},
-        {provide: ToastrService, useClass: ToastrServiceStub}
+        {provide: ToastrService, useClass: ToastrServiceStub},
+        {provide: Router, useClass: RouterStub}
       ]
     })
     .compileComponents();
@@ -47,3 +49,4 @@ describe('UserReglogComponent', () => {
 class AuthServiceStub {}
 class UserServiceStub {}
 class ToastrServiceStub {}
+class RouterStub {}

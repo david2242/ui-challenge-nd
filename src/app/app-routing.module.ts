@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ArticleDetailsComponent } from './components/article-details/article-details.component';
 import { ArticleFormComponent } from './components/article-form/article-form.component';
 import { ArticleListComponent } from './components/article-list/article-list.component';
 import { ArticleComponent } from './components/article/article.component';

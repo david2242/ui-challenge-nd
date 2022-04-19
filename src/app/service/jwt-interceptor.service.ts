@@ -14,9 +14,9 @@ export class JwtInterceptorService implements HttpInterceptor {
       const currentUser = this.auth.currentUserValue;
 
       if (currentUser && currentUser.token) {
-        req = req.clone({
+        req = req.clone({ //KLÓNOZNI KELL, KÜLÖNBEN VÉGTELEN CIKLUS
           setHeaders: {
-            Authorization: `Bearer ${currentUser.token}`
+            Authorization: `Bearer ${currentUser.token}` //TOKEN INJEKTÁLÁSA A HTTP HÍVÁSOKBA
           }
         });
       }

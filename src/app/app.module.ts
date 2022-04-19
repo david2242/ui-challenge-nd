@@ -15,7 +15,6 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { JwtInterceptorService } from './service/jwt-interceptor.service';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { ArticleComponent } from './components/article/article.component';
-import { ArticleDetailsComponent } from './components/article-details/article-details.component';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -29,8 +28,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     UserReglogComponent,
     UserListComponent,
     UserDetailsComponent,
-    ArticleComponent,
-    ArticleDetailsComponent
+    ArticleComponent
   ],
   imports: [
     BrowserModule,

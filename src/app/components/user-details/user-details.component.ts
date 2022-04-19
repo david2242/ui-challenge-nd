@@ -12,19 +12,6 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class UserDetailsComponent implements OnInit {
 
-  public userForm: FormGroup = new FormGroup({
-    userEmail: new FormControl('', [Validators.required, Validators.email]),
-    userName: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    userBio: new FormControl(''),
-    userImage: new FormControl('')
-  });
-
-  private currentUser: UserInfo = {
-    username: "",
-    email: "",
-    bio: "",
-    image: ""
-  };
 
   constructor(
     private userService: UserService,
@@ -32,11 +19,28 @@ export class UserDetailsComponent implements OnInit {
     private toastr: ToastrService
   ) { }
 
+  // TEMPLATE-DRIVEN FORM
+  public userForm: FormGroup = new FormGroup({
+    userEmail: new FormControl('', [Validators.required, Validators.email]),
+    userName: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    userBio: new FormControl(''),
+    userImage: new FormControl('')
+  });
+
+  // LOCAL OBJECT
+  private currentUser: UserInfo = {
+    username: "",
+    email: "",
+    bio: "",
+    image: ""
+  };
+
   ngOnInit(): void {
     if (localStorage['currentUser']) {
       this.currentUser = JSON.parse(localStorage['currentUser']);
     };
 
+    // FILLING FORM WITH USER VALUES
     this.userForm.setValue({
       userEmail: this.currentUser.email,
       userName: this.currentUser.username,
@@ -45,6 +49,7 @@ export class UserDetailsComponent implements OnInit {
     });
   }
 
+  // SAVING VALUES FROM IMPUT TO LOCAL OBJECT
   private saveUserDataFromInput(): void {
     this.currentUser.username = this.userForm.value.userName;
     this.currentUser.email = this.userForm.value.userEmail;
@@ -52,6 +57,7 @@ export class UserDetailsComponent implements OnInit {
     if (this.userForm.value.userImage) this.currentUser.image = this.userForm.value.userImage;
   }
 
+  // UPDATING USER
   public updateUser() {
     this.saveUserDataFromInput();
     this.userService.update(this.currentUser).subscribe(
@@ -78,7 +84,5 @@ export class UserDetailsComponent implements OnInit {
   createErrorMessage(errors: any): string {
     return Object.values(errors).join('</br>');
   }
-
 }
 
-// localStorage.setItem('currentUser', JSON.stringify(user));

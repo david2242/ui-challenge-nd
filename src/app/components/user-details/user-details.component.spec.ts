@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
 
@@ -13,7 +14,8 @@ describe('UserDetailsComponent', () => {
       declarations: [ UserDetailsComponent ],
       providers: [
         {provide: UserService, useClass: UserServiceStub},
-        {provide: AuthService, useClass: AuthServiceStub}
+        {provide: AuthService, useClass: AuthServiceStub},
+        {provide: ToastrService, useClass: ToastrServiceStub}
       ]
     })
     .compileComponents();
@@ -32,3 +34,4 @@ describe('UserDetailsComponent', () => {
 
 class UserServiceStub {}
 class AuthServiceStub {}
+class ToastrServiceStub {}
