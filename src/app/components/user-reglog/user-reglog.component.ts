@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateUser, UserEmailPasswordInterface, UserInterface } from 'src/app/model/user';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { faLess } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-user-reglog',
@@ -20,12 +21,29 @@ export class UserReglogComponent implements OnInit {
     userPassword: new FormControl('', [Validators.required, Validators.minLength(5)]),
     userName: new FormControl('', [Validators.required, Validators.minLength(5)]),
   });
+  get userEmail () {
+    return this.userForm.get('userEmail');
+  }
+  get userPassword () {
+    return this.userForm.get('userPassword');
+  }
+  get userName () {
+    return this.userForm.get('userName');
+  }
 
+  
   // LOGIN
   public loginForm: FormGroup = new FormGroup({
     loginEmail: new FormControl('', [Validators.required, Validators.email]),
     loginPassword: new FormControl('', [Validators.required, Validators.minLength(5)]),
   });
+  
+  get loginEmail () {
+    return this.loginForm.get('loginEmail');
+  }
+  get loginPassword () {
+    return this.loginForm.get('loginPassword');
+  }
 
   // LOCAL NEW-USER OBJECT
   private newUser: CreateUser = {
@@ -93,6 +111,13 @@ export class UserReglogComponent implements OnInit {
   }
   createErrorMessage(errors: any): string {
     return Object.values(errors).join('</br>');
+  }
+
+  validHelper(formControl: AbstractControl | null) {
+    if (formControl!.pristine) return 'form-control';
+    if (formControl!.invalid && formControl!.dirty) return 'form-control is-invalid';
+    if (formControl!.valid && formControl!.dirty) return 'form-control is-valid';
+    return 'form-control';
   }
 
 }
