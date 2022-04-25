@@ -113,11 +113,15 @@ export class UserReglogComponent implements OnInit {
     return Object.values(errors).join('</br>');
   }
 
-  validHelper(formControl: AbstractControl | null) {
+  // VALIDATION HELPING FUNCTIONS 
+  validHelper(formControl: AbstractControl | null): string {
     if (formControl!.pristine) return 'form-control';
     if (formControl!.invalid && formControl!.dirty) return 'form-control is-invalid';
     if (formControl!.valid && formControl!.dirty) return 'form-control is-valid';
     return 'form-control';
+  }
+  smallTextHelper(formControl: AbstractControl | null): boolean {
+    return (formControl!.invalid && formControl!.dirty);
   }
 
 }
