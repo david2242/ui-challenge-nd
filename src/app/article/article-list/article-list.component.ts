@@ -39,7 +39,6 @@ export class ArticleListComponent implements OnInit {
     // GETTING ALL THE ARTICLES
     this.articleService.getAll().subscribe(
       (res: any) => {
-        console.log(res);
         this.articleList = res.articles;
       }
     )
@@ -49,7 +48,7 @@ export class ArticleListComponent implements OnInit {
   public showChosenArticle(slug: string) {
     const encodedSlug = this.codec.encodeValue(slug);
     this.articleService.chosenSlug = slug;
-    this.router.navigate(['article-show']);
+    this.router.navigate(['article', 'show']);
   }
 
   // SORTING METHODS

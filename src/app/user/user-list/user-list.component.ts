@@ -17,7 +17,7 @@ export class UserListComponent implements OnInit {
   constructor(
     private userService: UserService,
     private auth: AuthService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     // GETTING ALL THE USERS
@@ -27,6 +27,12 @@ export class UserListComponent implements OnInit {
         this.userList = res;
       }
     );
+    var myModal = document.getElementById('myModal')
+    var myInput = document.getElementById('myInput')
+
+    myModal?.addEventListener('shown.bs.modal', function () {
+      myInput?.focus()
+    })
   }
 
   // USER DELETE ACTION
@@ -43,7 +49,7 @@ export class UserListComponent implements OnInit {
         }
       );
     }
-    
+
   }
 
 

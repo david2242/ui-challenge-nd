@@ -14,3 +14,8 @@
     color: rgb(194, 173, 59);
     text-shadow: 1px 1px 1px #ccc;
 }
+
+.user_link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

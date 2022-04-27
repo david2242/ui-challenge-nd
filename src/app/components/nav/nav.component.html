@@ -13,8 +13,8 @@
                         Article
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#" routerLink="article-form">New Article</a></li>
-                        <li><a class="dropdown-item" href="#" routerLink="article-list">Article-list</a></li>
+                        <li><a class="dropdown-item" href="#" routerLink="article/form">New Article</a></li>
+                        <li><a class="dropdown-item" href="#" routerLink="article/list">Article-list</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -23,17 +23,17 @@
                         User
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#" routerLink="user-reglog">New User / User - login</a></li>
-                        <li><a class="dropdown-item" href="#" routerLink="user-list">User-list</a></li>
+                        <li><a class="dropdown-item" href="#" routerLink="/user/reglog">New User / User - login</a></li>
+                        <li><a class="dropdown-item" href="#" routerLink="/user/list">User-list</a></li>
                     </ul>
                 </li>
             </ul>
             <div class="d-flex justify-content-end">
                 <span *ngIf="currentUser" class="navbar-text ps-3 pe-1">Welcome</span>
-                <a *ngIf="currentUser" class="navbar-text" href="#" routerLink="user-details">{{ currentUser.username }}</a>
+                <a *ngIf="currentUser" class="navbar-text" href="#" routerLink="user/details">{{ currentUser.username }}</a>
                 <span *ngIf="currentUser" class="navbar-text pe-3">!</span>
                 <button *ngIf="currentUser" class="btn btn-secondary" (click)="logout()">Logout</button>
-                <button *ngIf="!currentUser" class="btn btn-secondary" routerLink="user-reglog">Login</button>
+                <button *ngIf="!currentUser" class="btn btn-secondary" routerLink="user/reglog">Login</button>
             </div>
         </div>
     </div>

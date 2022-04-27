@@ -27,7 +27,6 @@ export class UserService {
 
   create(user: CreateUser): Observable<UserInterface> {
     let url = 'http://localhost:3000/api/users';
-    console.log(user);
     return this.http.post<UserInterface>(url, user);
   }
 

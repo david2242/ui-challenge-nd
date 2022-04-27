@@ -95,7 +95,7 @@ export class ArticleFormComponent implements OnInit {
     this.saveArticleValuesFromInput();
     this.articleService.createArticle(this.newArticle).subscribe(
       (res) => {
-        this.router.navigate(['article-list']);
+        this.router.navigate(['article','list']);
       },
       err => {
         this.showError(err.error.message);
@@ -109,7 +109,7 @@ export class ArticleFormComponent implements OnInit {
       this.articleService.update(this.newArticle.slug, this.newArticle).subscribe(
         res => {
           this.toastr.success('Article updated!', 'OK!')
-          this.router.navigate(['article-list']);
+          this.router.navigate(['article', 'show']);
         }
       );
     }
@@ -120,7 +120,7 @@ export class ArticleFormComponent implements OnInit {
       this.articleService.delete(this.newArticle.slug).subscribe(
         res => {
           this.toastr.success('Article deleted!', 'Deleted!')
-          this.router.navigate(['article-list']);
+          this.router.navigate(['article', 'list']);
         }
       );
     }

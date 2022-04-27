@@ -8,6 +8,9 @@ import { AuthService } from 'src/app/service/auth.service';
 import { faPenSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faStar as solidFaStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
+import { ProfileService } from 'src/app/service/profile.service';
+import { UserInfo, UserProfile } from 'src/app/model/user';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-article',
@@ -31,11 +34,19 @@ export class ArticleComponent implements OnInit {
   // ARTICLE EDIT MODE: ON/OFF
   public editOn: boolean = false;
 
+  // USER-INFO TO SHOW
+  public pickedUserProfile: UserProfile = {
+    username: "",
+    bio: "",
+    image: ""
+  }
+
   constructor(
     private articleService: ArticleService,
     private router: Router,
     private auth: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private profile: ProfileService
   ) { }
 
   ngOnInit(): void {
@@ -52,7 +63,7 @@ export class ArticleComponent implements OnInit {
   // NAVIGATION TO THE ARTICLE FORM COMPONENT WITH THE CHOSEN ARTICLE IN PARAMETER
   editArticle(slug: string) {
     if (this.auth.currentUserValue) {
-      this.router.navigate(['article', slug])
+      this.router.navigate(['article', 'form', slug])
     } else this.toastr.warning('Please log in to edit the article!', 'Warning!');
   }
 
@@ -61,7 +72,6 @@ export class ArticleComponent implements OnInit {
   submitComment(comment: NgForm) {
     this.articleService.createComment(comment.form.value, this.articleService.chosenSlug).subscribe(
       res => {
-        console.log(res);
         this.ngOnInit();
         comment.resetForm();
       }
@@ -73,7 +83,6 @@ export class ArticleComponent implements OnInit {
   deleteComment(id: number) {
     this.articleService.deleteComment(id, this.articleService.chosenSlug).subscribe(
       res => {
-        console.log(res);
         this.ngOnInit();
       }
     )
@@ -84,11 +93,9 @@ export class ArticleComponent implements OnInit {
     if (!isFavorite) {
       this.articleService.favorite(slug).subscribe(
         res => {
-          console.log("favorited" + res);
           this.articleService.get(this.articleService.chosenSlug).subscribe(
             (res: any) => {
               this.showArticle = res.article;
-              console.log(this.showArticle);
               this.loggedIn = Boolean(this.auth.currentUserValue.username);
             }
             );
@@ -100,7 +107,6 @@ export class ArticleComponent implements OnInit {
     } else {
       this.articleService.deFavorite(slug).subscribe(
         res => {
-          console.log("defavorited" + res);
           this.ngOnInit();
         },
         err => {
@@ -108,6 +114,39 @@ export class ArticleComponent implements OnInit {
         }
       )
     }
+  }
+
+  //SHOW COMMENTER USER PROFILE
+  public showUser(username: string) {
+    this.profile.getProfileInfo(username).subscribe(
+      (res) => {
+        console.log(res);
+        this.pickedUserProfile = res.profile;
+        console.log(this.pickedUserProfile);
+      },
+      (err) => console.log(err)
+      )
+    }
+    
+    public followUser(username: string): void {
+      this.profile.followUser(username).subscribe(
+        res => {
+          console.log(res);
+          this.pickedUserProfile = res.profile;
+          
+        },
+        err => console.log(err)
+        )
+      }
+      
+      public unfollowUser(username: string): void {
+        this.profile.unfollowUser(username).subscribe(
+          res => {
+            console.log(res);
+            this.pickedUserProfile = res.profile;
+          },
+      err => console.log(err)
+    )
   }
 
 }

@@ -7,5 +7,8 @@ export interface Article {
     comments?: Array<any>,
     created?: number,
     isFavourite?: boolean,
-    favoriteCount?: number
+    favoriteCount?: number,
+    author?: {
+        username: string
+    }
 }

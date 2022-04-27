@@ -68,7 +68,6 @@ export class UserReglogComponent implements OnInit {
     this.newUser.username = this.userForm.value.userName;
     this.newUser.email = this.userForm.value.userEmail;
     this.newUser.password = this.userForm.value.userPassword;
-    console.log(this.newUser);
   }
 
   // LOGIN USER ACTION
@@ -92,9 +91,13 @@ export class UserReglogComponent implements OnInit {
   public regNewUser(): void {
     this.saveUserDataFromInput();
     this.userService.create(this.newUser).subscribe(
-      res => this.userForm.reset(),
+      res => {
+        this.userForm.reset();
+        this.toastr.success('User registrated!', 'Congrats!');
+      },
       err => {
-        this.showError(this.createErrorMessage(err.error.errors));
+        if (err.error.errors) this.showError(this.createErrorMessage(err.error.errors));  // Van amikor az error message 'errors' kulcsba volt csomagolva,
+        if (err.error._errors) this.showError(this.createErrorMessage(err.error._errors)); // de van amikor '_errors' kulcsba volt csomagolva.
       }
     );
   }
