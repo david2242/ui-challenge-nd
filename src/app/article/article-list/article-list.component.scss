@@ -7,7 +7,6 @@
     overflow: hidden;
 }
 
-
 .card-title {
     max-height: 4.8em;
 }
@@ -17,3 +16,9 @@
 .card-text {
     max-height: 18em;
 }
+
+/* .card-header:hover {
+    box-shadow: 0 .5rem 1rem rgba(85, 85, 85, 0.5);
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+} */

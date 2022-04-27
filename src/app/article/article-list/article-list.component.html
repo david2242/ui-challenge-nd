@@ -6,11 +6,11 @@
             [innerHTML]="sortingFavourite[sortingFavouriteState].buttonText"></button></div>
 </div>
 <main class="container-md">
-    <div class="row">
+    <div class="row" data-masonry='{"percentPosition": true }'>
         <div *ngFor="let article of articleList" class="col d-flex justify-content-center my-3">
             <div class="card" style="width: 18rem;">
                 <div (click)="showUser(article.author!.username)" data-bs-toggle="modal" data-bs-target="#userProfileModal" class="card-header">{{ article.author?.username }}</div>
-                <div (click)="showChosenArticle(article.slug!)">
+                <div style="height: 100%" (click)="showChosenArticle(article.slug!)">
                     <img src="https://www.fillmurray.com/300/210" class="card-img-top" alt="Bill Murray photo">
                     <div class="card-body shadow p-3 bg-body rounded">
                         <div class="card-clickable">

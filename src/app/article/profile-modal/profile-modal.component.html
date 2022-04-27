@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button *ngIf="loggedIn && !pickedUserProfile.following" (click)="followUser(pickedUserProfile.username)" type="button" class="btn btn-primary">Follow</button>
+                <button [disabled]="pickedUserProfile.username == loggedInUsername" *ngIf="loggedIn && !pickedUserProfile.following" (click)="followUser(pickedUserProfile.username)" type="button" class="btn btn-primary">Follow</button>
                 <button *ngIf="loggedIn && pickedUserProfile.following" (click)="unfollowUser(pickedUserProfile.username)" type="button" class="btn btn-primary">UnFollow</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>

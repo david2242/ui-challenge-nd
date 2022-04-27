@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserProfile } from 'src/app/model/user';
+import { AuthService } from 'src/app/service/auth.service';
 import { ProfileService } from 'src/app/service/profile.service';
 
 @Component({
@@ -15,10 +16,15 @@ export class ProfileModalComponent implements OnInit {
     bio: "",
     image: ""
   };
+  public loggedInUsername: string = ""
   
-  constructor(private profile: ProfileService) { }
+  constructor(
+    private profile: ProfileService,
+    private auth: AuthService
+    ) { }
 
   ngOnInit(): void {
+    this.loggedInUsername = this.auth.currentUserValue.username;
   }
 
 
