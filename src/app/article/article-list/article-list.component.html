@@ -8,24 +8,28 @@
 <main class="container-md">
     <div class="row">
         <div *ngFor="let article of articleList" class="col d-flex justify-content-center my-3">
-            <div class="card" (click)="showChosenArticle(article.slug!)" style="width: 18rem;">
-                <div class="card-header">{{ article.author?.username }}</div>
-                <img src="https://www.fillmurray.com/300/210" class="card-img-top" alt="Bill Murray photo">
-                <div class="card-body shadow p-3 bg-body rounded">
-                    <div class="card-clickable">
-                        <h5 class="card-title m-0">{{ article.title }}</h5>
-                        <hr>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ article.description }}</h6>
-                        <hr *ngIf="article.description">
-                        <p class="card-text">{{ article.body }}</p>
-                        <hr>
-                        <span *ngFor="let tag of article.tagList" class="badge bg-secondary m-1">{{ tag }}</span>
+            <div class="card" style="width: 18rem;">
+                <div (click)="showUser(article.author!.username)" data-bs-toggle="modal" data-bs-target="#userProfileModal" class="card-header">{{ article.author?.username }}</div>
+                <div (click)="showChosenArticle(article.slug!)">
+                    <img src="https://www.fillmurray.com/300/210" class="card-img-top" alt="Bill Murray photo">
+                    <div class="card-body shadow p-3 bg-body rounded">
+                        <div class="card-clickable">
+                            <h5 class="card-title m-0">{{ article.title }}</h5>
+                            <hr>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ article.description }}</h6>
+                            <hr *ngIf="article.description">
+                            <p class="card-text">{{ article.body }}</p>
+                            <hr>
+                            <span *ngFor="let tag of article.tagList" class="badge bg-secondary m-1">{{ tag }}</span>
+                        </div>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">{{ article.created | date }}</small>
+                    <div class="card-footer">
+                        <small class="text-muted">{{ article.created | date }}</small>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
+
+<app-profile-modal [loggedIn]="loggedIn" [pickedUserProfile]="pickedUserProfile"></app-profile-modal>

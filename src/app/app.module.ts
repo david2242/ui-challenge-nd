@@ -14,6 +14,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { UserMainComponent } from './components/user-main/user-main.component';
+// import { ProfileModalComponent } from './components/profile-modal/profile-modal.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { UserMainComponent } from './components/user-main/user-main.component';
     NavComponent,
     WelcomeComponent,
     UserMainComponent,
+    // ProfileModalComponent,
   ],
   imports: [
     BrowserModule,

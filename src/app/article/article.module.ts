@@ -9,6 +9,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagInputModule } from 'ngx-chips';
+import { ProfileModalComponent } from './profile-modal/profile-modal.component';
 
 const routes: Routes = [
   {path: "", component: ArticleListComponent},
@@ -22,7 +23,8 @@ const routes: Routes = [
   declarations: [
     ArticleComponent,
     ArticleFormComponent,
-    ArticleListComponent
+    ArticleListComponent,
+    ProfileModalComponent
   ],
   imports: [
     CommonModule,

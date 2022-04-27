@@ -1,0 +1,22 @@
+<div class="modal fade" id="userProfileModal" tabindex="-1" aria-labelledby="userProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userProfileModalLabel">User Info</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row my-1"><div class="col-3">Username:</div><div class="col-9"><em>{{ pickedUserProfile.username }}</em></div></div>
+                    <div class="row my-1"><div class="col-3">Biograph:</div><div class="col-9"><em>{{ pickedUserProfile.bio }}</em></div></div>
+                    <div class="row my-1"><div class="col-3">Image:</div><div class="col-9"><em>{{ pickedUserProfile.image }}</em></div></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button *ngIf="loggedIn && !pickedUserProfile.following" (click)="followUser(pickedUserProfile.username)" type="button" class="btn btn-primary">Follow</button>
+                <button *ngIf="loggedIn && pickedUserProfile.following" (click)="unfollowUser(pickedUserProfile.username)" type="button" class="btn btn-primary">UnFollow</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

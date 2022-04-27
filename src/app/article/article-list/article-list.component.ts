@@ -2,7 +2,10 @@ import { HttpUrlEncodingCodec } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Article } from 'src/app/model/article';
+import { UserProfile } from 'src/app/model/user';
 import { ArticleService } from 'src/app/service/article.service';
+import { AuthService } from 'src/app/service/auth.service';
+import { ProfileService } from 'src/app/service/profile.service';
 
 
 @Component({
@@ -14,6 +17,12 @@ export class ArticleListComponent implements OnInit {
 
   public articleList: Article[] = [];
   codec = new HttpUrlEncodingCodec;
+  public loggedIn: boolean = false;
+  public pickedUserProfile: UserProfile = {
+    username: "",
+    bio: "",
+    image: ""
+  }
 
   //SORTING STATES
   sortingCreated = [
@@ -32,7 +41,9 @@ export class ArticleListComponent implements OnInit {
 
   constructor(
     private articleService: ArticleService,
-    private router: Router
+    private router: Router,
+    private auth: AuthService,
+    private profile: ProfileService
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +52,8 @@ export class ArticleListComponent implements OnInit {
       (res: any) => {
         this.articleList = res.articles;
       }
-    )
+    );
+    if (this.auth.currentUserValue) this.loggedIn = true;
   }
 
   // SHOW SPECIFIED ARTICLE ON CLICK EVENT
@@ -94,6 +106,18 @@ export class ArticleListComponent implements OnInit {
     state++;
     if (state == 3) {state = 0};
     return state;
+  }
+
+  //GET PICKED USER PROFILE
+  public showUser(username: string) {
+    this.profile.getProfileInfo(username).subscribe(
+      (res) => {
+        console.log(res);
+        this.pickedUserProfile = res.profile;
+        console.log(this.pickedUserProfile);
+      },
+      (err) => console.log(err)
+    )
   }
 
 }

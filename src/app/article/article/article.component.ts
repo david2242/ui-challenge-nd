@@ -26,7 +26,7 @@ export class ArticleComponent implements OnInit {
     body: "",
     tagList: []
   }
-  
+
 
   public loggedIn: boolean = false;
   faPenSquare = faPenSquare; faTrash = faTrash;
@@ -57,7 +57,7 @@ export class ArticleComponent implements OnInit {
           this.loggedIn = Boolean(this.auth.currentUserValue.username);
         } else this.loggedIn = false;
       }
-      );
+    );
   }
 
   // NAVIGATION TO THE ARTICLE FORM COMPONENT WITH THE CHOSEN ARTICLE IN PARAMETER
@@ -98,7 +98,7 @@ export class ArticleComponent implements OnInit {
               this.showArticle = res.article;
               this.loggedIn = Boolean(this.auth.currentUserValue.username);
             }
-            );
+          );
         },
         err => {
           this.toastr.warning("Please sign in to favourite!", "Warning!")
@@ -125,28 +125,9 @@ export class ArticleComponent implements OnInit {
         console.log(this.pickedUserProfile);
       },
       (err) => console.log(err)
-      )
-    }
-    
-    public followUser(username: string): void {
-      this.profile.followUser(username).subscribe(
-        res => {
-          console.log(res);
-          this.pickedUserProfile = res.profile;
-          
-        },
-        err => console.log(err)
-        )
-      }
-      
-      public unfollowUser(username: string): void {
-        this.profile.unfollowUser(username).subscribe(
-          res => {
-            console.log(res);
-            this.pickedUserProfile = res.profile;
-          },
-      err => console.log(err)
     )
   }
+
+
 
 }
