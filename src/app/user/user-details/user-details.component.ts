@@ -1,3 +1,4 @@
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -12,12 +13,24 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class UserDetailsComponent implements OnInit {
 
+  imageFile: any;
+  // imageURL: string = "";
+  CLOUDINARY_URL: string = "https://api.cloudinary.com/v1_1/ddkxkkxdt/upload";
+  CLOUDINARY_UPLOAD_PRESET: string = "vpallkqj";
+
+  responseObj: any = {
+    secure_url: ""
+  };
 
   constructor(
     private userService: UserService,
     private auth: AuthService,
-    private toastr: ToastrService
-  ) { }
+    private toastr: ToastrService,
+    private handler: HttpBackend,
+    private httpClient: HttpClient
+  ) {
+    this.httpClient = new HttpClient(handler);
+  }
 
   // TEMPLATE-DRIVEN FORM
   public userForm: FormGroup = new FormGroup({
@@ -28,7 +41,7 @@ export class UserDetailsComponent implements OnInit {
   });
 
   // LOCAL OBJECT
-  private currentUser: UserInfo = {
+  public currentUser: UserInfo = {
     username: "",
     email: "",
     bio: "",
@@ -57,19 +70,34 @@ export class UserDetailsComponent implements OnInit {
     if (this.userForm.value.userImage) this.currentUser.image = this.userForm.value.userImage;
   }
 
+  // SELECTING AN IMAGE FILE
+  onFileChange(event: any) {
+    this.imageFile = event.target.files[0];
+    console.log(event);
+  }
+
   // UPDATING USER
   public updateUser() {
     this.saveUserDataFromInput();
-    this.userService.update(this.currentUser).subscribe(
-      (user) => {
-        console.log(user);
-        localStorage.clear();
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.auth.currentUserSubject.next(user);
-        this.toastr.success('User details updated!', 'Success!');
-      },
-      err => {
-        this.showError(this.createErrorMessage(err.error.errors));
+    const fd = new FormData();
+    fd.append('file', this.imageFile);
+    fd.append('upload_preset', this.CLOUDINARY_UPLOAD_PRESET);
+    this.httpClient.post(this.CLOUDINARY_URL, fd).subscribe(
+      res => {
+        this.responseObj = res;
+        this.currentUser.image = this.responseObj.secure_url;
+        this.userService.update(this.currentUser).subscribe(
+          (user) => {
+            console.log(user);
+            localStorage.clear();
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.auth.currentUserSubject.next(user);
+            this.toastr.success('User details updated!', 'Success!');
+          },
+          err => {
+            this.showError(this.createErrorMessage(err.error.errors));
+          }
+        )
       }
     )
   }

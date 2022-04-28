@@ -10,13 +10,15 @@
                             <input formControlName="userEmail" type="email" class="form-control" id="userEmail"
                                 placeholder="name@example.com">
                             <label for="userEmail">Email address</label>
-                            <small *ngIf="userForm.get('userEmail')?.invalid && userForm.get('userEmail')?.dirty" class="text-danger">Please enter a valid e-mail!</small>
+                            <small *ngIf="userForm.get('userEmail')?.invalid && userForm.get('userEmail')?.dirty"
+                                class="text-danger">Please enter a valid e-mail!</small>
                         </div>
                         <div class="form-floating mb-3">
                             <input formControlName="userName" type="text" class="form-control" id="userName"
                                 placeholder="Username">
                             <label for="userName">Username</label>
-                            <small *ngIf="userForm.get('userName')?.invalid && userForm.get('userName')?.dirty" class="text-danger">Username must be at least 5 characters!</small>
+                            <small *ngIf="userForm.get('userName')?.invalid && userForm.get('userName')?.dirty"
+                                class="text-danger">Username must be at least 5 characters!</small>
                         </div>
                         <div class="form-floating mb-3">
                             <textarea formControlName="userBio" class="form-control" id="userBio" placeholder="Bio"
@@ -28,6 +30,12 @@
                                 placeholder="image">
                             <label for="userImage">Image</label>
                         </div>
+                        <div class="mb-3">
+                            <label for="userImageFile" class="form-label">Upload avatar image!</label>
+                            <input class="form-control" type="file" id="userImageFile" accept="image/*"
+                            (change)="onFileChange($event)">
+                        </div>
+                        <img *ngIf="currentUser.image" [src]="currentUser.image" class="img-thumbnail" alt="">
                         <button [disabled]="userForm.invalid" class="btn btn-secondary">Update</button>
                     </form>
                 </div>
