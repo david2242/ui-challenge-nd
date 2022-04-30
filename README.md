@@ -74,6 +74,15 @@ I made simple unit test with dummy services.
 
 _That was the second thing what I started to learn through this project, and it was very exciting. I am grateful to this challenge for teaching me simple unit tests._
 
+## Future Plans
+
+* image upload for articles
+* specify admin users. Only admin users can delete other users and article comments
+* making better design
+* adding a welcome page
+* adding guards to routes
+* setting password strength analyzer on the fly
+
 ###
 Hope you like my solution. Thank you for challenging me!
 
