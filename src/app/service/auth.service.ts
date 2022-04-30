@@ -25,7 +25,7 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  login(loginData: UserEmailPasswordInterface): Observable<UserInterface> {
+  public login(loginData: UserEmailPasswordInterface): Observable<UserInterface> {
     return this.http.post<{user: UserInterface}>(
       this.loginUrl,
       {email: loginData.email, password: loginData.password}
@@ -42,17 +42,15 @@ export class AuthService {
           this.lastToken = user.token;  //ELMENTJÜK A TOKENT (A JWT-NEK)
           localStorage.setItem('currentUser', JSON.stringify(user)); //BEÁLLÍTJUK A LOCAL STORAGE-BE A USERT
           this.currentUserSubject.next(user); //KISUGÁROZZUK AZ ÚJ USERT
-          // console.log(user);
         }
       })
     )
 
   }
 
-  logout(){
+  public logout(): void {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
-    // console.log(this.currentUserValue);
     this.router.navigate(['user', 'reglog']);
   }
 

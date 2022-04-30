@@ -57,7 +57,7 @@ export class ArticleListComponent implements OnInit {
   }
 
   // SHOW SPECIFIED ARTICLE ON CLICK EVENT
-  public showChosenArticle(slug: string) {
+  public showChosenArticle(slug: string): void {
     const encodedSlug = this.codec.encodeValue(slug);
     this.articleService.chosenSlug = slug;
     this.router.navigate(['article', 'show']);
@@ -102,21 +102,21 @@ export class ArticleListComponent implements OnInit {
   }
 
   // MAKE BUTTONS CYCLE THROUGH 3 STATE
-  private sortingStateChange(state: number) {
+  private sortingStateChange(state: number): number {
     state++;
     if (state == 3) {state = 0};
     return state;
   }
 
   //GET PICKED USER PROFILE
-  public showUser(username: string) {
+  public showUser(username: string): void {
     this.profile.getProfileInfo(username).subscribe(
       (res) => {
-        console.log(res);
         this.pickedUserProfile = res.profile;
-        console.log(this.pickedUserProfile);
       },
-      (err) => console.log(err)
+      (err) => {
+        console.log(err);
+      }
     )
   }
 

@@ -118,59 +118,39 @@ export class UserReglogComponent implements OnInit {
   }
 
   //TOASTER MESSAGES
-  showSuccessLogin(username: string) {
+  private showSuccessLogin(username: string): void {
     this.toastr.success(`Welcome ${username}!`, 'Login success!');
   }
-  showError(message: string) {
+  private showError(message: string): void {
     this.toastr.error(message, "Error!", {
       enableHtml: true,
       progressBar: true
     })
   }
-  createErrorMessage(errors: any): string {
+  private createErrorMessage(errors: any): string {
     return Object.values(errors).join('</br>');
   }
 
   // VALIDATION HELPING FUNCTIONS 
-  validHelper(formControl: AbstractControl | null): string {
+  public validHelper(formControl: AbstractControl | null): string {
     if (formControl!.pristine) return 'form-control';
     if (formControl!.invalid && formControl!.dirty) return 'form-control is-invalid';
     if (formControl!.valid && formControl!.dirty) return 'form-control is-valid';
     return 'form-control';
   }
-  smallTextHelper(formControl: AbstractControl | null): boolean {
+  public smallTextHelper(formControl: AbstractControl | null): boolean {
     return (formControl!.invalid && formControl!.dirty);
   }
 
   //PASSWORD CONFIRM 
-  passwordHelper(): string {
+  public passwordHelper(): string {
     if (this.userPasswordAgain!.pristine) return 'form-control';
     if (((this.userPassword!.value == this.userPasswordAgain!.value) && this.userPasswordAgain!.value)) return 'form-control is-valid';
     if (((this.userPassword!.value != this.userPasswordAgain!.value) && this.userPasswordAgain!.dirty)) return 'form-control is-invalid';
     return 'form-control';
   }
-  passwordSmallTextHelper(): boolean | undefined{
+  public passwordSmallTextHelper(): boolean | undefined{
     return ((this.userForm.get('userPassword')?.value != this.userForm.get('userPasswordAgain')?.value) && this.userForm.get('userPasswordAgain')?.dirty);
   }
-
   
 }
-
-
-// interface ValidatorFn {
-//   (control: AbstractControl): ValidationErrors | null
-//   confirmPasswordMatch(controlName: string, matchingControlName: string): any {
-//     return (formGroup: FormGroup) => {
-//       const control = formGroup.controls[controlName];
-//       const matchingControl = formGroup.controls[matchingControlName];
-
-//       if (control.value != matchingControl.value) {
-//         matchingControl.setErrors({comfirmPasswordMatch: true});
-//       } else {
-//         matchingControl.setErrors(null);
-//       }
-//     }
-//   }
-// }
-
-

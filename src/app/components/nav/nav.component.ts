@@ -19,7 +19,7 @@ export class NavComponent implements OnInit, OnDestroy {
     private toastr: ToastrService
   ) { }
 
-  logout(): void {
+  public logout(): void {
     this.toastr.info('You logged out!', 'Goodbye!')
     this.auth.logout();
   }

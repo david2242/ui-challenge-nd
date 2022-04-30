@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, Subscription } from 'rxjs';
 import { UserInterface } from 'src/app/model/user';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
@@ -37,7 +38,7 @@ export class UserListComponent implements OnInit {
   }
 
   // USER DELETE ACTION
-  public onDelete(email: string) {
+  public onDelete(email: string): Subscription | null {
     if (this.auth.currentUserValue.email == email) {
       this.toastr.warning("You cannot delete yourself!")
       return null;

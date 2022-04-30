@@ -71,12 +71,12 @@ export class UserDetailsComponent implements OnInit {
   }
 
   // SELECTING AN IMAGE FILE
-  onFileChange(event: any) {
+  public onFileChange(event: any): void {
     this.imageFile = event.target.files[0];
   }
 
   // UPDATING USER
-  public updateUser() {
+  public updateUser(): void {
     this.saveUserDataFromInput();
     if (this.imageFile) {
       const fd = new FormData();
@@ -109,7 +109,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   //CREATING UNIQUE ERROR MESSAGE
-  showError(message: string) {
+  private showError(message: string): void {
     this.toastr.error(message, "Error!", {
       enableHtml: true,
       progressBar: true
@@ -117,7 +117,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   //JOINING MULTIPLE ERROR MESSAGES
-  createErrorMessage(errors: any): string {
+  private createErrorMessage(errors: any): string {
     return Object.values(errors).join('</br>');
   }
 }

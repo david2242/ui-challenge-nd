@@ -61,7 +61,7 @@ export class ArticleComponent implements OnInit {
   }
 
   // NAVIGATION TO THE ARTICLE FORM COMPONENT WITH THE CHOSEN ARTICLE IN PARAMETER
-  editArticle(slug: string) {
+  public editArticle(slug: string): void {
     if (this.auth.currentUserValue) {
       this.router.navigate(['article', 'form', slug])
     } else this.toastr.warning('Please log in to edit the article!', 'Warning!');
@@ -69,7 +69,7 @@ export class ArticleComponent implements OnInit {
 
 
   // COMMENTING SECTION
-  submitComment(comment: NgForm) {
+  public submitComment(comment: NgForm): void {
     this.articleService.createComment(comment.form.value, this.articleService.chosenSlug).subscribe(
       res => {
         this.ngOnInit();
@@ -77,10 +77,10 @@ export class ArticleComponent implements OnInit {
       }
     )
   }
-  showEditComment() {
+  public showEditComment(): void {
     this.editOn = !this.editOn;
   }
-  deleteComment(id: number) {
+  public deleteComment(id: number): void {
     this.articleService.deleteComment(id, this.articleService.chosenSlug).subscribe(
       res => {
         this.ngOnInit();
@@ -89,7 +89,7 @@ export class ArticleComponent implements OnInit {
   }
 
   // TOGGLE FAVORITE SECTION
-  toggleFavorite(slug: string | undefined, isFavorite?: boolean) {
+  public toggleFavorite(slug: string | undefined, isFavorite?: boolean): void {
     if (!isFavorite) {
       this.articleService.favorite(slug).subscribe(
         res => {
@@ -120,11 +120,9 @@ export class ArticleComponent implements OnInit {
   public showUser(username: string) {
     this.profile.getProfileInfo(username).subscribe(
       (res) => {
-        console.log(res);
         this.pickedUserProfile = res.profile;
-        console.log(this.pickedUserProfile);
       },
-      (err) => console.log(err)
+      (err) => this.toastr.error(err.error.message)
     )
   }
 

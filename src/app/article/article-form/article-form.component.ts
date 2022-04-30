@@ -129,7 +129,7 @@ export class ArticleFormComponent implements OnInit {
 
 
   // TOASTR ERROR MESSAGE
-  showError(message: string) {
+  private showError(message: string): void {
     this.toastr.error(message, "Error!", {
       enableHtml: true,
       progressBar: true
