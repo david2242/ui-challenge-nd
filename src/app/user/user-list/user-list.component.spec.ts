@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
 import { UserInterface } from 'src/app/model/user';
 import { UserListComponent } from './user-list.component';
+import { ToastrService } from 'ngx-toastr';
 
 describe('UserListComponent', () => {
   let component: UserListComponent;
@@ -17,7 +18,8 @@ describe('UserListComponent', () => {
       declarations: [UserListComponent],
       providers: [
         { provide: UserService, useClass: UserServiceStub },
-        { provide: AuthService, useClass: AuthServiceStub }
+        { provide: AuthService, useClass: AuthServiceStub },
+        { provide: ToastrService, useClass: ToastrServiceStub }
       ]
     })
       .compileComponents();
@@ -56,6 +58,7 @@ class UserServiceStub {
 }
 
 class AuthServiceStub { }
+class ToastrServiceStub { }
 
 class Helper {
   users: UserInterface[] = []
