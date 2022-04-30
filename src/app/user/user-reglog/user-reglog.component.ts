@@ -91,7 +91,12 @@ export class UserReglogComponent implements OnInit {
           this.router.navigate(['']);
       },
       err => {
-        this.showError(this.createErrorMessage(err.error.errors));
+        console.log(err);
+        if (err.error.errors) {
+          this.showError(this.createErrorMessage(err.error.errors))
+        } else {
+          this.toastr.error(err.message, 'error')
+        }
       }
     );
   }
@@ -105,6 +110,7 @@ export class UserReglogComponent implements OnInit {
         this.toastr.success('User registrated!', 'Congrats!');
       },
       err => {
+        // if (err.message) this.toastr.error(err.message, 'Error!');
         if (err.error.errors) this.showError(this.createErrorMessage(err.error.errors));  // Van amikor az error message 'errors' kulcsba volt csomagolva,
         if (err.error._errors) this.showError(this.createErrorMessage(err.error._errors)); // de van amikor '_errors' kulcsba volt csomagolva.
       }

@@ -3,26 +3,26 @@
 <div *ngIf="!loggedIn" class="text-center"><button class="n btn-secondary btn-lg" href="#" routerLink="/user/reglog">Log
         in first!</button></div>
 <div *ngIf="loggedIn" class="container-md">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>username</th>
-                <th>email</th>
-                <th>bio</th>
-                <th>image</th>
-                <th>action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of userList">
-                <td>{{ user.id }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.bio }}</td>
-                <td>{{ user.image }}</td>
-                <td><button type="button" class="btn btn-danger" (click)="onDelete(user.email)">Delete</button></td>
-            </tr>
-    </table>
-</div>
+    <div class="table-responsive">
 
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>username</th>
+                    <th>email</th>
+                    <th>image</th>
+                    <th>action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of userList">
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.image }}</td>
+                    <td><button type="button" class="btn btn-danger" (click)="onDelete(user.email)">Delete</button></td>
+                </tr>
+        </table>
+    </div>
+</div>
