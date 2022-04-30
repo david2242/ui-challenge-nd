@@ -6,7 +6,7 @@ First I had to gain a basic understanding about Swagger, then I had to examine t
 
 I have built a Single Page Application using **Angular** and **VSCode**. I have used **Bootstrap** CSS library, with the built in classes. I used **Font-awesome** icons.
 
-The page is responsive. The navbar collapses on mobile, and hamburger icon is shown. 
+The page is responsive.
 
 ## Navbar
 
@@ -31,16 +31,15 @@ Clicking on navbar's New Article menu, it navigates us to a form, where a new ar
 The article has four input field, only "title" and "body" is required to fill.
 The article form is validated. 
 
-For the tag-input I used **ngx-chips**. I have never used it before, but is pretty nice, using it required only little JS code.
+For the tag-input I used **ngx-chips**. I have never used it before, but is pretty nice, using it requires only little JS code.
 
 ### Article Component
 
 When clicking a specific article in the article-list page, it directs us to a page where we can read the article. On the top, we can favorite and unfavorite the article (/api/articles/{slug}/favorite).
-In the top corner, there is an Edit button, which directs us to a form where we can edit the specified article. For transporting "slug" in the url, and using it for parameter, I used Routes modul, paramMap function and HTTPUrlEncodingCodec. The form is filled with the article's existing data. If editing mode is on, the form-s edit and delete button is visible.
+In the top corner, there is an Edit button, which directs us to a form where we can edit the specified article. For transporting "slug" in the url, and using it for parameter, I used Routes modul, **paramMap** function and **HTTPUrlEncodingCodec**. The form is filled with the article's existing data. If editing mode is on, the form-s edit and delete button is visible.
 If we arent authorized, we get toaster messages (whith **ngx-toastr**) with the info, we have to log in to favorite and edit.
 
-Under the article there is the comment section. Faded paragraph tells us if we arent logged in, and the input field is disabled. If we are logged in, we are able to write comments (/api/articles/{slug}/comments).
-If we are logged in, we can toggle editing the comments. If the little edit icon is clicked, red trash icon shows, and we are able to delete comment.
+Under the article there is the comment section. Faded paragraph tells us if we arent logged in, and the input field is disabled. If we are logged in, we are able to write comments (/api/articles/{slug}/comments) and we can toggle editing the comments. If the little edit icon is clicked, red trash icon shows, and we can delete comment.
 Clicking on comment's username, it shows us a modal, where users basic data is shown, with profile picture, if uploaded. If logged in, a "Follow/Unfollow" button is shown, to follow/unfollow user (/api/profiles/{username}/follow).
 
 ## User Section
@@ -55,7 +54,7 @@ Creating the form, I have used Template-driven forms. On the registration panel 
 
 After logging in, current user is stored in browser **local storage**. User's token is stored in auth service. **Bearer token is injected in each http request**. 
 
-_I was very happy about this project becouse I have never used authorization before, but it was mandatory to learn it anyways._
+_I was very happy about this project because I have never used authorization before, but it was mandatory to learn it anyways._
 
 ### User-info component
 
@@ -64,7 +63,7 @@ I extended the aplication using **Cloudinary API**. We can upload images, and in
 
 ### User-list
 
-We can list the registrated users in a table format (/api/users) if we are authorized. We can delete singe users using the "Delete" button (​/api​/users​/{email}).
+We can list the registrated users in a table format (/api/users) if we are authorized. We can delete singe users using the "Delete" button (​/api​/users​/{email}). The user can not delet herself, error message is shown.
 
 
 ## Running unit tests
