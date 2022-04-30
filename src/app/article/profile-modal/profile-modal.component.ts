@@ -27,21 +27,20 @@ export class ProfileModalComponent implements OnInit {
     this.loggedInUsername = this.auth.currentUserValue.username;
   }
 
-
+  //FOLLOWING USER
   public followUser(username: string): void {
     this.profile.followUser(username).subscribe(
       res => {
-        console.log(res);
         this.pickedUserProfile = res.profile;
       },
       err => console.log(err)
     )
   }
 
+  //UNFOLLOW USER
   public unfollowUser(username: string): void {
     this.profile.unfollowUser(username).subscribe(
       res => {
-        console.log(res);
         this.pickedUserProfile = res.profile;
       },
       err => console.log(err)

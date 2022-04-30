@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { Article } from 'src/app/model/article';
 import { ArticleService } from 'src/app/service/article.service';
+import { AuthService } from 'src/app/service/auth.service';
+import { ProfileService } from 'src/app/service/profile.service';
 
 import { ArticleListComponent } from './article-list.component';
 
@@ -18,7 +20,9 @@ describe('ArticleListComponent', () => {
       declarations: [ ArticleListComponent ],
       providers: [
         {provide: ArticleService, useClass: ArticleServiceStub},
-        {provide: Router, useClass: RouterStub}
+        {provide: Router, useClass: RouterStub},
+        {provide: AuthService, useClass: AuthServiceStub},
+        {provide: ProfileService, useClass: ProfileServiceStub},
       ]
     })
     .compileComponents();
@@ -72,6 +76,8 @@ class ArticleServiceStub {
   }
 }
 class RouterStub{}
+class AuthServiceStub{}
+class ProfileServiceStub{}
 
 class Helper {
   articles: Article[] = [];

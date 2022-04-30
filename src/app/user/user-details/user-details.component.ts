@@ -87,35 +87,29 @@ export class UserDetailsComponent implements OnInit {
         res => {
           this.responseObj = res;
           this.currentUser.image = this.responseObj.secure_url;
-          this.userService.update(this.currentUser).subscribe(
-            (user) => {
-              console.log(user);
-              localStorage.clear();
-              localStorage.setItem('currentUser', JSON.stringify(user));
-              this.auth.currentUserSubject.next(user);
-              this.toastr.success('User details updated!', 'Success!');
-            },
-            err => {
-              this.showError(this.createErrorMessage(err.error.errors));
-            }
-          )
+          this.updateUserTexts();
         }
       )
     } else {
-      this.userService.update(this.currentUser).subscribe(
-        (user) => {
-          console.log(user);
-          localStorage.clear();
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.auth.currentUserSubject.next(user);
-          this.toastr.success('User details updated!', 'Success!');
-        },
-        err => {
-          this.showError(this.createErrorMessage(err.error.errors));
-        })
+      this.updateUserTexts()
     }
   }
 
+  //UPDATING USER INFO, USED AFTER IMAGE UPLOAD INMEDIATELY
+  private updateUserTexts(): void {
+    this.userService.update(this.currentUser).subscribe(
+      (user) => {
+        localStorage.clear();
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.auth.currentUserSubject.next(user);
+        this.toastr.success('User details updated!', 'Success!');
+      },
+      err => {
+        this.showError(this.createErrorMessage(err.error.errors));
+      })
+  }
+
+  //CREATING UNIQUE ERROR MESSAGE
   showError(message: string) {
     this.toastr.error(message, "Error!", {
       enableHtml: true,
@@ -123,6 +117,7 @@ export class UserDetailsComponent implements OnInit {
     })
   }
 
+  //JOINING MULTIPLE ERROR MESSAGES
   createErrorMessage(errors: any): string {
     return Object.values(errors).join('</br>');
   }

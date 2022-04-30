@@ -4,7 +4,7 @@
         <div class="col">
 
             <!-- ARTICLE -->
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between align-items-start">
                 <h3>{{ showArticle.title }}</h3>
                 <div class="d-flex">
                     <fa-icon  *ngIf="!showArticle.isFavourite" class="mx-2 star-valign clickable" (click)="toggleFavorite(showArticle.slug, showArticle.isFavourite)" [icon]="faStar"></fa-icon>

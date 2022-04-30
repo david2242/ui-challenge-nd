@@ -12,17 +12,12 @@ import { JwtInterceptorService } from './service/jwt-interceptor.service';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { WelcomeComponent } from './components/welcome/welcome.component';
-import { UserMainComponent } from './components/user-main/user-main.component';
 // import { ProfileModalComponent } from './components/profile-modal/profile-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
-    WelcomeComponent,
-    UserMainComponent,
-    // ProfileModalComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,

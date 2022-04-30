@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { of } from 'rxjs';
 import { ArticleService } from 'src/app/service/article.service';
 import { AuthService } from 'src/app/service/auth.service';
+import { ProfileService } from 'src/app/service/profile.service';
 
 import { ArticleComponent } from './article.component';
 
@@ -18,7 +19,8 @@ describe('ArticleComponent', () => {
         {provide: ArticleService, useClass: ArticleServiceStub},
         {provide: Router, useClass: RouterStub},
         {provide: AuthService, useClass: AuthServiceStub},
-        {provide: ToastrService, useClass: ToastrServiceStub}
+        {provide: ToastrService, useClass: ToastrServiceStub},
+        {provide: ProfileService, useClass: ProfileServiceStub}
       ]
     })
     .compileComponents();
@@ -44,3 +46,4 @@ class ArticleServiceStub {
 class RouterStub {}
 class ToastrServiceStub {}
 class AuthServiceStub {}
+class ProfileServiceStub {}

@@ -18,10 +18,10 @@ describe('NavComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([
-          {path: 'article-form', component: DummyComponent},
-          {path: 'article-list', component: DummyComponent},
-          {path: 'user-reglog', component: DummyComponent},
-          {path: 'user-list', component: DummyComponent}
+          {path: 'article/form', component: DummyComponent},
+          {path: 'article/list', component: DummyComponent},
+          {path: 'user/reglog', component: DummyComponent},
+          {path: 'user/list', component: DummyComponent}
         ])
       ],
       declarations: [
@@ -56,44 +56,44 @@ describe('NavComponent', () => {
     expect(location.path()).toBe('');
   })
 
-  it('should navigate to /article-form on menu click', fakeAsync(() => {
+  it('should navigate to /article/form on menu click', fakeAsync(() => {
     const location = TestBed.get(Location);
     const links = fixture.debugElement.queryAll(By.css('a'));
     const linkButton: HTMLAnchorElement = links[2].nativeElement;
     linkButton.click();
     fixture.detectChanges();
     tick();
-    expect(location.path()).toBe('/article-form');
+    expect(location.path()).toBe('/article/form');
   }));
 
-  it('should navigate to /article-list on menu click', fakeAsync(() => {
+  it('should navigate to /article/list on menu click', fakeAsync(() => {
     const location = TestBed.get(Location);
     const links = fixture.debugElement.queryAll(By.css('a'));
     const linkButton: HTMLAnchorElement = links[3].nativeElement;
     linkButton.click();
     fixture.detectChanges();
     tick();
-    expect(location.path()).toBe('/article-list');
+    expect(location.path()).toBe('/article/list');
   }));
 
-  it('should navigate to /user-reglog on menu click', fakeAsync(() => {
+  it('should navigate to /user/reglog on menu click', fakeAsync(() => {
     const location = TestBed.get(Location);
     const links = fixture.debugElement.queryAll(By.css('a'));
     const linkButton: HTMLAnchorElement = links[5].nativeElement;
     linkButton.click();
     fixture.detectChanges();
     tick();
-    expect(location.path()).toBe('/user-reglog');
+    expect(location.path()).toBe('/user/reglog');
   }));
 
-  it('should navigate to /user-list on menu click', fakeAsync(() => {
+  it('should navigate to /user/list on menu click', fakeAsync(() => {
     const location = TestBed.get(Location);
     const links = fixture.debugElement.queryAll(By.css('a'));
     const linkButton: HTMLAnchorElement = links[6].nativeElement;
     linkButton.click();
     fixture.detectChanges();
     tick();
-    expect(location.path()).toBe('/user-list');
+    expect(location.path()).toBe('/user/list');
   }));
 
 });
