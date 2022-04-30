@@ -24,7 +24,9 @@ export class ProfileModalComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.loggedInUsername = this.auth.currentUserValue.username;
+    if (this.auth.currentUserValue) {
+      this.loggedInUsername = this.auth.currentUserValue.username;
+    }
   }
 
   //FOLLOWING USER

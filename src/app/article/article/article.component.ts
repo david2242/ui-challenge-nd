@@ -9,8 +9,8 @@ import { faPenSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faStar as solidFaStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { ProfileService } from 'src/app/service/profile.service';
-import { UserInfo, UserProfile } from 'src/app/model/user';
-import { Observable } from 'rxjs';
+import { UserProfile } from 'src/app/model/user';
+
 
 @Component({
   selector: 'app-article',
@@ -52,7 +52,6 @@ export class ArticleComponent implements OnInit {
   ngOnInit(): void {
     this.articleService.get(this.articleService.chosenSlug).subscribe(
       (res: any) => {
-        console.log(res);
         this.showArticle = res.article;
         if (this.auth.currentUserValue) {
           this.loggedIn = Boolean(this.auth.currentUserValue.username);

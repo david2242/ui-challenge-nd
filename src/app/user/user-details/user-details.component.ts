@@ -73,7 +73,6 @@ export class UserDetailsComponent implements OnInit {
   // SELECTING AN IMAGE FILE
   onFileChange(event: any) {
     this.imageFile = event.target.files[0];
-    console.log(event);
   }
 
   // UPDATING USER

@@ -32,7 +32,6 @@ export class UserService {
 
   delete(email: string): Observable<any>{
     let url = `http://localhost:3000/api/users/${email}`;
-    console.log(url);
     return this.http.delete(url);
   }
 

@@ -20,6 +20,7 @@ I have enforced using 2 submodules for organizing application code. The first mo
 ### Article-list
 
 It shows the list of articles (/api/articles). For the article-list-layout I used bootstrap grid system, and I've put bootstrap cards in the grids. In the header we can see the creator, and the number what shows, how many times was the article favorited.
+However, it was not part of the exercise, but to make the cards more colorful, I've put **Bill Murray placeholders** into the cards.
 We can organize cards related to creation-date, or times it had been favorited.
 Clicking on Card header, it shows the article's creator's user profile info. (/api/profiles/{username}).
 Clicking anywhere else on the card, it will navigat us to the specific article (/api/articles/{slug}).
@@ -59,7 +60,7 @@ _I was very happy about this project becouse I have never used authorization bef
 ### User-info component
 
 If clicked on navbar's username part, we get a form where fields are filled with user's data.
-I extended the aplication using cloudinary api. We can upload images, and in response we get the image url. That is saved to user's field. 
+I extended the aplication using **Cloudinary API**. We can upload images, and in response we get the image url. That is saved to user's field. On Cloudinary, I have set a rule. Any uploaded image will be cropped to be square - in order to handle the profile pictures easyly.
 
 ### User-list
 

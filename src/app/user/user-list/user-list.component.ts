@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserInterface } from 'src/app/model/user';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
@@ -16,14 +17,14 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private auth: AuthService
+    private auth: AuthService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
     // GETTING ALL THE USERS
     this.userService.getAll().subscribe(
       (res) => {
-        console.log(res);
         this.userList = res;
       }
     );
@@ -37,19 +38,20 @@ export class UserListComponent implements OnInit {
 
   // USER DELETE ACTION
   public onDelete(email: string) {
-    console.log(email);
     if (this.auth.currentUserValue.email == email) {
-      console.log("You cannot delete yourself!");
+      this.toastr.warning("You cannot delete yourself!")
       return null;
     } else {
       return this.userService.delete(email).subscribe(
         (res) => {
-          console.log(res);
+          this.toastr.warning(`${email} deleted`, 'Warning!')
           this.ngOnInit();
+        },
+        (err) => {
+          this.toastr.warning(err.error.message)
         }
       );
     }
-
   }
 
 

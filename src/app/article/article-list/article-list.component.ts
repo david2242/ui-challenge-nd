@@ -50,7 +50,6 @@ export class ArticleListComponent implements OnInit {
     // GETTING ALL THE ARTICLES
     this.articleService.getAll().subscribe(
       (res: any) => {
-        console.log(res);
         this.articleList = res.articles;
       }
     );
