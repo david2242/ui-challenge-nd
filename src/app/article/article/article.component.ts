@@ -52,6 +52,7 @@ export class ArticleComponent implements OnInit {
   ngOnInit(): void {
     this.articleService.get(this.articleService.chosenSlug).subscribe(
       (res: any) => {
+        console.log(res);
         this.showArticle = res.article;
         if (this.auth.currentUserValue) {
           this.loggedIn = Boolean(this.auth.currentUserValue.username);

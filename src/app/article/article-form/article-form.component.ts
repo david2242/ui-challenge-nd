@@ -95,6 +95,7 @@ export class ArticleFormComponent implements OnInit {
     this.saveArticleValuesFromInput();
     this.articleService.createArticle(this.newArticle).subscribe(
       (res) => {
+        this.toastr.success('Article uploaded!', 'Good job!')
         this.router.navigate(['article','list']);
       },
       err => {

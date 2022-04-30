@@ -7,9 +7,15 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <div class="row my-1"><div class="col-3">Username:</div><div class="col-9"><em>{{ pickedUserProfile.username }}</em></div></div>
-                    <div class="row my-1"><div class="col-3">Biograph:</div><div class="col-9"><em>{{ pickedUserProfile.bio }}</em></div></div>
-                    <div class="row my-1"><div class="col-3">Image:</div><div class="col-9"><em>{{ pickedUserProfile.image }}</em></div></div>
+                    <div class="row d-flex flex-row">
+                        <div class="col-9">
+                            <div class="row my-1"><div class="col-3">Username:</div><div class="col-9"><em>{{ pickedUserProfile.username }}</em></div></div>
+                            <div class="row my-1"><div class="col-3">Biograph:</div><div class="col-9"><em>{{ pickedUserProfile.bio }}</em></div></div>
+                        </div>
+                        <div *ngIf="pickedUserProfile.image != '' && pickedUserProfile.image" class="col-3" >
+                            <img [src]="pickedUserProfile.image" alt="profile picture" style="height: 75px">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

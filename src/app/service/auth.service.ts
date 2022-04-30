@@ -53,7 +53,7 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     // console.log(this.currentUserValue);
-    this.router.navigate(['user-reglog']);
+    this.router.navigate(['user', 'reglog']);
   }
 
 

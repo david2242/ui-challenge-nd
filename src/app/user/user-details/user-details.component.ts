@@ -79,27 +79,41 @@ export class UserDetailsComponent implements OnInit {
   // UPDATING USER
   public updateUser() {
     this.saveUserDataFromInput();
-    const fd = new FormData();
-    fd.append('file', this.imageFile);
-    fd.append('upload_preset', this.CLOUDINARY_UPLOAD_PRESET);
-    this.httpClient.post(this.CLOUDINARY_URL, fd).subscribe(
-      res => {
-        this.responseObj = res;
-        this.currentUser.image = this.responseObj.secure_url;
-        this.userService.update(this.currentUser).subscribe(
-          (user) => {
-            console.log(user);
-            localStorage.clear();
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            this.auth.currentUserSubject.next(user);
-            this.toastr.success('User details updated!', 'Success!');
-          },
-          err => {
-            this.showError(this.createErrorMessage(err.error.errors));
-          }
-        )
-      }
-    )
+    if (this.imageFile) {
+      const fd = new FormData();
+      fd.append('file', this.imageFile);
+      fd.append('upload_preset', this.CLOUDINARY_UPLOAD_PRESET);
+      this.httpClient.post(this.CLOUDINARY_URL, fd).subscribe(
+        res => {
+          this.responseObj = res;
+          this.currentUser.image = this.responseObj.secure_url;
+          this.userService.update(this.currentUser).subscribe(
+            (user) => {
+              console.log(user);
+              localStorage.clear();
+              localStorage.setItem('currentUser', JSON.stringify(user));
+              this.auth.currentUserSubject.next(user);
+              this.toastr.success('User details updated!', 'Success!');
+            },
+            err => {
+              this.showError(this.createErrorMessage(err.error.errors));
+            }
+          )
+        }
+      )
+    } else {
+      this.userService.update(this.currentUser).subscribe(
+        (user) => {
+          console.log(user);
+          localStorage.clear();
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.auth.currentUserSubject.next(user);
+          this.toastr.success('User details updated!', 'Success!');
+        },
+        err => {
+          this.showError(this.createErrorMessage(err.error.errors));
+        })
+    }
   }
 
   showError(message: string) {

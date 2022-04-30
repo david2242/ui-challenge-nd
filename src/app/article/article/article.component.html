@@ -52,6 +52,9 @@
             </div>
             <div class="container">
                 <div *ngFor="let comment of showArticle.comments" class="row my-3">
+                    <div class="col-1 p-0">
+                        <img [src]="comment.author.image" alt="" style="width: 80%" class="m-2 mt-0 border border-dark rounded">
+                    </div>
                     <div class="col">
                         <p (click)="showUser(comment.author.username)" data-bs-toggle="modal" data-bs-target="#userProfileModal" class="mb-0 fw-bold lh-1 user_link">{{ comment.author.username }}</p>
                         <small class="text-muted lh-1">{{ comment.created | date:'y. MMMM d. EEEE HH:mm'}}</small>

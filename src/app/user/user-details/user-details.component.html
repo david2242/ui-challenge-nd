@@ -22,11 +22,11 @@
                         </div>
                         <div class="form-floating mb-3">
                             <textarea formControlName="userBio" class="form-control" id="userBio" placeholder="Bio"
-                                rows="6" style="height:100%;"></textarea>
+                                rows="6" style="height:100%;" maxlength="500"></textarea>
                             <label for="userBio">Bio</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input formControlName="userImage" type="text" class="form-control" id="userImage"
+                            <input readonly formControlName="userImage" type="text" class="form-control" id="userImage"
                                 placeholder="image">
                             <label for="userImage">Image</label>
                         </div>
@@ -35,7 +35,9 @@
                             <input class="form-control" type="file" id="userImageFile" accept="image/*"
                             (change)="onFileChange($event)">
                         </div>
-                        <img *ngIf="currentUser.image" [src]="currentUser.image" class="img-thumbnail" alt="">
+                        <div>
+                            <img *ngIf="currentUser.image" [src]="currentUser.image" class="w-50 img-thumbnail p-3 my-3" alt="">
+                        </div>
                         <button [disabled]="userForm.invalid" class="btn btn-secondary">Update</button>
                     </form>
                 </div>
