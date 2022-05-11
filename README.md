@@ -86,3 +86,4 @@ _That was the second thing what I started to learn through this project, and it 
 ###
 Hope you like my solution. Thank you for challenging me!
 
+_Nagy Dávid_
